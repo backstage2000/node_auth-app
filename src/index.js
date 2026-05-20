@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import { authrouter } from './routes/auth.route.js';
 import { errorMiddleware } from './middlewares/errorMiddleware.js';
 import { profilerouter } from './routes/profile.route.profile.js';
+import { passwordResetrouter } from './routes/passwordReset.route.js';
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(
 
 app.use(authrouter);
 app.use('/profile', profilerouter);
+app.use(passwordResetrouter);
 app.use(errorMiddleware);
 
 app.listen(PORT, () => {
