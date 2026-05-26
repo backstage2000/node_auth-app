@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable prettier/prettier */
 'use strict';
 
@@ -25,8 +26,8 @@ app.use(
 );
 
 app.use(authrouter);
-app.use('/profile', profilerouter);
 app.use(passwordResetrouter);
+app.use('/profile', profilerouter);
 app.use(errorMiddleware);
 
 app.listen(PORT, () => {
