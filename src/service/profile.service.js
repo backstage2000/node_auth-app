@@ -32,6 +32,8 @@ async function updateEmail(email, newEmail) {
     'profile/email',
     'Activate change Email',
   );
+
+  await emailService.sendNotification(email, 'Your email change was requested');
 }
 
 async function confirmEmailChange(emailChangeToken) {

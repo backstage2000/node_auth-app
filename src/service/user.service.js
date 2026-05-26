@@ -4,7 +4,9 @@ import { emailService } from '../service/email.service.js';
 import { v4 as uuidv4 } from 'uuid';
 
 export function getAllActivated() {
-  return User.findAll();
+  return User.findAll({
+    where: { activationToken: null },
+  });
 }
 
 function normalizeUser({ name, id, email } = {}) {

@@ -108,9 +108,14 @@ const generateTokens = async (res, user, redirect = null) => {
 
 const logout = async (req, res) => {
   const { refreshToken } = req.cookies;
-  const userData = await jwtService.verifyRefresh(refreshToken);
 
-  if (!userData || !refreshToken) {
+  if (!refreshToken) {
+    throw ApiError.unauthorized();
+  }
+
+  const userData = jwtService.verifyRefresh(refreshToken);
+
+  if (!userData) {
     throw ApiError.unauthorized();
   }
 

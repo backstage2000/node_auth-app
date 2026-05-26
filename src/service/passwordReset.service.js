@@ -10,9 +10,7 @@ async function reset(email) {
   const user = await User.findOne({ where: { email } });
 
   if (!user) {
-    throw ApiError.badRequest('User already exist', {
-      email: 'User already exist',
-    });
+    throw ApiError.notFound('User not found');
   }
 
   user.resetToken = resetToken;

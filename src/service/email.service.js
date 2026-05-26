@@ -12,6 +12,7 @@ const transporter = nodemailer.createTransport({
 
 export function send({ email, subject, html }) {
   return transporter.sendMail({
+    from: process.env.SMTP_USER,
     to: email,
     subject,
     html,
@@ -30,7 +31,17 @@ function sendActivationEmail(email, token, route = '', info) {
   return send({ email, html, subject: 'Activate' });
 }
 
+function sendNotification(email, message) {
+  const html = `
+    <h1>Notification</h1>
+    <p>${message}</p>
+  `;
+
+  return send({ email, html, subject: 'Notification' });
+}
+
 export const emailService = {
   sendActivationEmail,
   send,
+  sendNotification,
 };

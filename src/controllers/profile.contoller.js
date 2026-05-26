@@ -31,6 +31,15 @@ const updateName = async (req, res) => {
 const updatePassword = async (req, res) => {
   const { oldPassword, newPassword, confirmation } = req.body;
 
+  const isOldPasswordCorrect = await bcrypt.compare(
+    oldPassword,
+    req.user.password,
+  );
+
+  if (!isOldPasswordCorrect) {
+    throw ApiError.badRequest('Old password is incorrect');
+  }
+
   const errors = {
     password: Validate.password(newPassword),
   };
@@ -39,15 +48,6 @@ const updatePassword = async (req, res) => {
     throw ApiError.badRequest('Bad Request', {
       errors,
     });
-  }
-
-  const isOldPasswordCorrect = await bcrypt.compare(
-    oldPassword,
-    req.user.password,
-  );
-
-  if (!isOldPasswordCorrect) {
-    throw ApiError.badRequest('Old password is incorrect');
   }
 
   if (newPassword !== confirmation) {
